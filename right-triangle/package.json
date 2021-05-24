@@ -29,7 +29,6 @@
   "engines": {
     "node": ">=0.12.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "chai": "*",
     "mocha": "*",
