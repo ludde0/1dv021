@@ -18,7 +18,13 @@
  * @returns {Array} A copy of the source array with an additional number.
  */
 function immutablePushNumber (source, number) {
-  // TODO: Write your code here.
+  if (!Array.isArray(source) || isNaN(number)) {
+    throw new TypeError()
+  }
+
+  const result = source.slice()
+  result.push(number)
+  return result
 }
 
 exports.immutablePushNumber = immutablePushNumber
