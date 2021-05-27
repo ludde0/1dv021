@@ -16,7 +16,12 @@
    * @returns {Object[]} An ordered array of team objects.
    */
 function sortByPoints (teams) {
-  // TODO: Write your code here!
+  if (!Array.isArray(teams)) {
+    throw new TypeError('Parameter is not an array');
+  }
+
+  const result = teams.slice()
+  return result.sort(function (a, b) { return b.points - a.points })
 }
 
 module.exports.sortByPoints = sortByPoints
