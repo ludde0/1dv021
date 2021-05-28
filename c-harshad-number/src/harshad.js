@@ -15,7 +15,15 @@
 * @returns {boolean}
 */
 function isValid (number) {
-  // TODO: Write your code here! This is the first function to implement.
+  // Convert number to a string.
+  const strNumber = number.toString()
+  const digits = []
+  for (let i = 0; i < strNumber.length; i++) {
+    digits.push(parseInt(strNumber[i], 10))
+  }
+  const digitSum = digits.reduce((a, b) => a + b)
+
+  return number % digitSum === 0
 }
 
 /**
@@ -25,7 +33,11 @@ function isValid (number) {
 * @returns {number}
 */
 function getNext (number) {
-  // TODO: Write your code here! This is the second function to implement.
+  let nextNumber = number + 1
+  while (!isValid(nextNumber)) {
+    nextNumber++
+  }
+  return nextNumber
 }
 
 /**
@@ -36,7 +48,16 @@ function getNext (number) {
 * @returns {number[]}
 */
 function getSequence (count, start = 0) {
-  // TODO: Write your code here! This is the third function to implement.
+  let numbersFound = 0
+  let number = start
+  const result = []
+  while (numbersFound < count) {
+    number = getNext(number)
+    result.push(number)
+    numbersFound++
+  }
+
+  return result
 }
 
 // Exports
