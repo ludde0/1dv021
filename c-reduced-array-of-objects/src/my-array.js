@@ -17,7 +17,15 @@
  * @returns {number} - The total sum of the nr property of the objects in the provided array.
  */
 function getSum (source) {
-  // TODO: Write your code here!
+  if (!Array.isArray(source)) {
+    throw new TypeError('The argument is not an array.')
+  }
+
+  if (source.length === 0) {
+    return 0
+  } else {
+    return source.reduce((sum, value) => sum + value.nr, 0)
+  }
 }
 
 // Exports
