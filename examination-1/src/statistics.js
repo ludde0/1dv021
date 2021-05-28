@@ -56,8 +56,8 @@ function mean (numbers) {
 function median (numbers) {
   checkValidArgument(numbers)
 
-  // We get an ascending sorted list of numbers
-  const sortedNumbers = numbers.slice().sort()
+  // We get an ascending sorted list of numbers.
+  const sortedNumbers = numbers.slice().sort((a, b) => a - b)
   let middleIndex
   if (sortedNumbers.length % 2 === 1) {
     // Length of array is odd. We return the number in the middle position of the array.
@@ -85,15 +85,26 @@ function range (numbers) {
   checkValidArgument(numbers)
 
   // We get an ascending sorted list of numbers.
-  const sortedNumbers = numbers.slice().sort()
+  const sortedNumbers = numbers.slice().sort((a, b) => a - b)
 
   // The result retruned is the difference between the highest and the lowest value.
-  return sortedNumbers[numbers.length - 1] + sortedNumbers[0]
+  return sortedNumbers[numbers.length - 1] - sortedNumbers[0]
 }
 
 function standardDeviation (numbers) {
   checkValidArgument(numbers)
-  return 0
+
+  // Calculate mean value.
+  const m = mean(numbers)
+  let sum = 0
+
+  // Calculate square of difference for each number and add to a sum.
+  numbers.forEach(function (x) {
+    sum += Math.pow(x - m, 2)
+  })
+
+  // Finally calculate the standard deviation.
+  return Math.sqrt(sum / numbers.length)
 }
 
 // Exports
