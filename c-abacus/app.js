@@ -27,4 +27,4 @@ try {
   console.error(e.message)
 }
 
-// console.log(abacus.addNestled([1, 2, 3], [[1, 2, 3, 4], 3, [1, 2, 3, 4, 5]], 2, 4, 6))
+console.log(abacus.add([1, 2, 3], [[1, 2, 3, 4], 3, [1, 2, 3, 4, 5]], 2, 4, 6))
