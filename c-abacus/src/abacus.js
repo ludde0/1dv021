@@ -29,6 +29,7 @@ function add (varArgs) {
       }
     } else if (Array.isArray(element)) {
       for (let index = 0; index < element.length; index++) {
+        // Recursive call.
         sum += add(element[index])
       }
     } else {
