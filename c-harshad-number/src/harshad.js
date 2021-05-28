@@ -21,7 +21,7 @@ function isValid (number) {
   for (let i = 0; i < strNumber.length; i++) {
     digits.push(parseInt(strNumber[i], 10))
   }
-  const digitSum = digits.reduce((a, b) => a + b)
+  const digitSum = digits.reduce((sum, value) => sum + value, 0)
 
   return number % digitSum === 0
 }
