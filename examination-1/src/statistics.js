@@ -78,7 +78,45 @@ function minimum (numbers) {
 
 function mode (numbers) {
   checkValidArgument(numbers)
-  return []
+
+  // We sort the list of numbers in ascending order.
+  const sortedNumbers = numbers.slice().sort((a, b) => a - b)
+  const stat = []
+  let statIndex = 0
+
+  // We create a new array with elements that keep track of number counts.
+  for (let index = 0; index < sortedNumbers.length; index++) {
+    if (index === 0) {
+      stat.push({ number: sortedNumbers[0], count: 1 })
+    } else {
+      if (sortedNumbers[index] === stat[statIndex].number) {
+        stat[statIndex].count++
+      } else {
+        stat.push({ number: sortedNumbers[index], count: 1 })
+        statIndex++
+      }
+    }
+  }
+
+  // Sort the stat array descending on 'count' values.
+  stat.sort(function(a, b) {
+    return b.count - a.count
+  })
+
+  // Max count of numbers can be found in the first element of the 'stat' array.
+  const maxCount = stat[0].count
+  const result = []
+
+  // Add all numbers to the resulting array where 'count' equals 'maxCount'.
+  for (let index = 0; index < stat.length; index++) {
+    if (stat[index].count === maxCount) {
+      result.push(stat[index].number)
+    } else {
+      break
+    }
+  }
+
+  return result
 }
 
 function range (numbers) {
