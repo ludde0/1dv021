@@ -20,7 +20,12 @@
 function descriptiveStatistics (numbers) {
   return {
     maximum: maximum(numbers),
-    mean: mean(numbers)
+    mean: mean(numbers),
+    median: median(numbers),
+    minimum: minimum(numbers),
+    mode: mode(numbers),
+    range: range(numbers),
+    standardDeviation: standardDeviation(numbers)
   }
 }
 
@@ -28,11 +33,11 @@ function checkValidArgument (numbers) {
   if (!Array.isArray(numbers)) {
     throw new TypeError('The passed argument is not an array.')
   }
-  if (numbers === []) {
+  if (numbers.length === 0) {
     throw new Error('The passed array contains no elements.')
   }
   numbers.forEach(function (element) {
-    if (isNaN(element)) {
+    if (!(typeof element === 'number')) {
       throw new TypeError('The passed array contains not just numbers.')
     }
   })
@@ -48,12 +53,55 @@ function mean (numbers) {
   return numbers.reduce((sum, next) => sum + next, 0) / numbers.length
 }
 
+function median (numbers) {
+  checkValidArgument(numbers)
+
+  // We get an ascending sorted list of numbers
+  const sortedNumbers = numbers.slice().sort()
+  let middleIndex
+  if (sortedNumbers.length % 2 === 1) {
+    // Length of array is odd. We return the number in the middle position of the array.
+    middleIndex = Math.floor(sortedNumbers.length / 2)
+    return sortedNumbers[middleIndex]
+  } else {
+    // Length of array is even. We return mean value of the the two numbers in
+    // the middle of the array.
+    middleIndex = sortedNumbers.length / 2
+    return (sortedNumbers[middleIndex - 1] + sortedNumbers[middleIndex]) / 2
+  }
+}
+
+function minimum (numbers) {
+  checkValidArgument(numbers)
+  return numbers.reduce((a, b) => Math.min(a, b))
+}
+
+function mode (numbers) {
+  checkValidArgument(numbers)
+  return []
+}
+
+function range (numbers) {
+  checkValidArgument(numbers)
+
+  // We get an ascending sorted list of numbers.
+  const sortedNumbers = numbers.slice().sort()
+
+  // The result retruned is the difference between the highest and the lowest value.
+  return sortedNumbers[numbers.length - 1] + sortedNumbers[0]
+}
+
+function standardDeviation (numbers) {
+  checkValidArgument(numbers)
+  return 0
+}
+
 // Exports
 exports.descriptiveStatistics = descriptiveStatistics
 exports.maximum = maximum
 exports.mean = mean
-exports.median = undefined
-exports.minimum = undefined
-exports.mode = undefined
-exports.range = undefined
-exports.standardDeviation = undefined
+exports.median = median
+exports.minimum = minimum
+exports.mode = mode
+exports.range = range
+exports.standardDeviation = standardDeviation
