@@ -15,7 +15,21 @@
  * @returns {Object.<string, number>} - The object as example: {mats: 1, john: 3}
  */
 function getFrequenciesOfNames (source) {
-  // TODO: Write your code here
+  if (!Array.isArray(source)) {
+    throw new TypeError('The argument is not an array.')
+  }
+
+  const obj = {}
+
+  source.forEach(function (element) {
+    const loCase = element.toLowerCase()
+    if (obj[loCase] === undefined) {
+      obj[loCase] = 1
+    } else {
+      obj[loCase]++
+    }
+  })
+  return obj
 }
 
 /**
@@ -25,7 +39,17 @@ function getFrequenciesOfNames (source) {
  * @returns {string[]}
  */
 function getMostFrequentNames (obj) {
-  // TODO: Write your code here
+  const keys = Object.keys(obj)
+  const values = Object.values(obj)
+  const max = Math.max(...values)
+  const result = []
+
+  for (let i = 0; i < keys.length; i++) {
+    if (values[i] === max) {
+      result.push(keys[i])
+    }
+  }
+  return result
 }
 
 /**
@@ -35,7 +59,7 @@ function getMostFrequentNames (obj) {
  * @returns {string[]}
  */
 function sortNamesAscending (source) {
-  // TODO: Write your code here
+  return source.slice().sort()
 }
 
 /**
