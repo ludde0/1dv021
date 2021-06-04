@@ -1,13 +1,8 @@
 'use strict'
 
-const minNumber = 1
-const maxNumber = 13
-const heart = 'heart'
-const spade = 'spade'
-const club = 'club'
-const diamond = 'diamond'
+const Constants = require('./constants')
 
-function Card (suit = heart, number = 1) {
+function Card (suit = Constants.heart, number = Constants.minNumber) {
   this.suit = suit
   this.number = number
 }
@@ -17,7 +12,8 @@ Object.defineProperty(Card.prototype, 'suit', {
     return this._suit
   },
   set: function (value) {
-    if (!(value === heart || value === spade || value === club || value === diamond)) {
+    if (!(value === Constants.heart || value === Constants.spade || 
+        value === Constants.club || value === Constants.diamond)) {
       throw new Error('Suit is not valid.')
     }
     this._suit = value
@@ -29,7 +25,7 @@ Object.defineProperty(Card.prototype, 'number', {
     return this._number
   },
   set: function (value) {
-    if (value < minNumber || value > maxNumber) {
+    if (value < Constants.minNumber || value > Constants.maxNumber) {
       throw new Error('Number must be in interval 1-13.')
     }
     this._number = value
@@ -58,16 +54,16 @@ Card.prototype.toString = function () {
   }
 
   switch (this.suit) {
-    case heart:
+    case Constants.heart:
       suitStr = '♥'
       break
-    case spade:
+    case Constants.spade:
       suitStr = '♠'
       break
-    case club:
+    case Constants.club:
       suitStr = '♣'
       break
-    case diamond:
+    case Constants.diamond:
       suitStr = '♦'
       break
     default:

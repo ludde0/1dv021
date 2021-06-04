@@ -1,36 +1,29 @@
 'use strict'
 
-const Card = require('./Card')
-const heart = require('./Card')
-const spade = require('./Card')
-const club = require('./Card')
-const diamond = require('./Card')
+const Card = require('./card')
+const Constants = require('./constants')
 
 class Deck {
   constructor () {
     this._cards = []
-    for (let card = 1; card <= 13; card++) {
-      this._cards.push(new Card(heart, card))
-    }
-
-    for (let card = 1; card <= 13; card++) {
-      this._cards.push(new Card(spade, card))
-    }
-
-    for (let card = 1; card <= 13; card++) {
-      this._cards.push(new Card(club, card))
-    }
-
-    for (let card = 1; card <= 13; card++) {
-      this._cards.push(new Card(diamond, card))
+    for (let cardNumber = Constants.minNumber; cardNumber <= Constants.maxNumber; cardNumber++) {
+      this._cards.push(new Card(Constants.heart, cardNumber))
+      this._cards.push(new Card(Constants.spade, cardNumber))
+      this._cards.push(new Card(Constants.club, cardNumber))
+      this._cards.push(new Card(Constants.diamond, cardNumber))
     }
   }
 
   drawCard () {
-    const cardIndex = Math.floor(Math.random() * this._cards.length)
-    const element = this._cards[cardIndex]
-    this._cards.splice(cardIndex, 1)
-    return element
+    if (this._cards.length === 0) {
+      throw new Error('No more cards left in the deck.')
+    }
+
+    // Get the first card from the deck.
+    const card = this._cards[0]
+    // Remove the first card from the deck.
+    this._cards.splice(0, 1)
+    return card
   }
 
   shuffle () {
@@ -40,6 +33,14 @@ class Deck {
       this._cards[i] = this._cards[j]
       this._cards[j] = temp
     }
+  }
+
+  toString () {
+    let result = ''
+    for (let cardIndex = 0; cardIndex < this._cards.length; cardIndex++) {
+      result += this._cards[cardIndex].toString() + ' '
+    }
+    return result
   }
 }
 
